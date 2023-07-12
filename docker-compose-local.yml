@@ -1,0 +1,14 @@
+services:
+  manage-diet-database:
+    container_name: manage-diet-database
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: buchonsi/manage-diet-database
+    environment:
+      - MYSQL_DATABASE=manage-diet
+      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./database/config:/etc/mysql/conf.d
+    ports:
+      - "3308:3306"
