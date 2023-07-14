@@ -12,19 +12,12 @@ spring:
 spring:
   config:
     activate:
-      on-profile: common
-
----
-
-spring:
-  config:
-    activate:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3308/manage-diet
-    username: {SPRING_DATASOURCE_USERNAME}
-    password: {SPRING_DATASOURCE_PASSWORD}
+    username: {SPRING.DATASOURCE.USERNAME}
+    password: {SPRING.DATASOURCE.PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create

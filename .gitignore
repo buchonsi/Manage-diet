@@ -38,3 +38,4 @@ out/
 
 ### My ignore ###
 .env
+application-common.yml
