@@ -35,12 +35,12 @@ public class OpenApiBuilderService {
         URI uri = uriBuilder.path(openApiKey)
                 .pathSegment(RECIPE_API_CODE, RETURN_TYPE, START_IDX, END_IDX, params)
                 .build().toUri();
+
         log.info(uri.toString());
-        log.info(openApiKey);
         return uri;
     }
 
-    public String buildParamPath(OpenApiParamDto openApiParamDto) {
+    private String buildParamPath(OpenApiParamDto openApiParamDto) {
         StringBuilder stringBuilder = new StringBuilder();
 
         Map<String, String> params = objectMapper.convertValue(openApiParamDto, new TypeReference<>(){});
@@ -49,12 +49,11 @@ public class OpenApiBuilderService {
             if (params.get(key) == null) {
                 continue;
             }
-            stringBuilder.append(key.toUpperCase())
+            stringBuilder.append(key)
                     .append("=")
                     .append(params.get(key))
                     .append("/");
         }
-
         return stringBuilder.toString();
     }
 }

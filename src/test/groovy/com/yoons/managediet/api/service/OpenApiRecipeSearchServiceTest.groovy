@@ -6,21 +6,20 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class OpenApiBuilderServiceTest extends Specification {
+class OpenApiRecipeSearchServiceTest extends Specification {
 
     @Autowired
-    private OpenApiBuilderService openApiBuilderService
+    private OpenApiRecipeSearchService openApiRecipeSearchService
 
-    def "Uri Builder Test"() {
+    def "Api get test"() {
         given:
-        def openApiParamDto= OpenApiParamDto.builder()
+        def openApiParamDto = OpenApiParamDto.builder()
                 .recipeName("파스타")
                 .build()
-
         when:
-        def uri = openApiBuilderService.buildUriByRecipeName(openApiParamDto)
+        openApiRecipeSearchService.requestRecipeSearch(openApiParamDto)
 
         then:
-        println uri.getRawPath()
+        println "ok"
     }
 }
