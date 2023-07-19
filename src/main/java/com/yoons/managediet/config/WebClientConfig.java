@@ -17,6 +17,8 @@ public class WebClientConfig {
         return WebClient.builder()
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .clientConnector(new ReactorClientHttpConnector(httpClient()))
+                .codecs(clientCodecConfigurer ->
+                        clientCodecConfigurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024))
                 .build();
     }
 
