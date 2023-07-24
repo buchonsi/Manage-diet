@@ -25,15 +25,13 @@ public class OpenApiBuilderService {
     private static final String BASE_URL = "https://openapi.foodsafetykorea.go.kr/api/";
     private static final String RECIPE_API_CODE = "COOKRCP01";
     private static final String RETURN_TYPE = "json";
-    private static final String START_IDX = "1";
-    private static final String END_IDX = "5";
 
-    public URI buildUriByRecipeName(OpenApiParamDto openApiParamDto) {
+    public URI buildUriByRecipeName(String startIdx, String endIdx, OpenApiParamDto openApiParamDto) {
         String params = buildParamPath(openApiParamDto);
 
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(BASE_URL);
         URI uri = uriBuilder.path(openApiKey)
-                .pathSegment(RECIPE_API_CODE, RETURN_TYPE, START_IDX, END_IDX, params)
+                .pathSegment(RECIPE_API_CODE, RETURN_TYPE, startIdx, endIdx, params)
                 .build().toUri();
 
         log.info(uri.toString());

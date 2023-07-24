@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 public class RawDto {
 
+//    @Todo 가져올 데이터 추가 해야함
     @JsonProperty("RCP_NM")
     private String recipeName;
 }

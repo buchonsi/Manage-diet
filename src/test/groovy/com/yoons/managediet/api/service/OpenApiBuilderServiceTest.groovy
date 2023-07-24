@@ -13,12 +13,14 @@ class OpenApiBuilderServiceTest extends Specification {
 
     def "Uri Builder Test"() {
         given:
+        def startIdx = "1"
+        def endIdx = "5"
         def openApiParamDto= OpenApiParamDto.builder()
                 .recipeName("파스타")
                 .build()
 
         when:
-        def uri = openApiBuilderService.buildUriByRecipeName(openApiParamDto)
+        def uri = openApiBuilderService.buildUriByRecipeName(startIdx, endIdx, openApiParamDto)
 
         then:
         println uri.getRawPath()
