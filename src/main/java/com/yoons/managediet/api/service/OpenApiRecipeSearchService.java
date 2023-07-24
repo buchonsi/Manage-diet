@@ -21,7 +21,7 @@ public class OpenApiRecipeSearchService {
     private final WebClient webClient;
     private final OpenApiBuilderService openApiBuilderService;
 
-    public OpenApiResponseDto requestRecipeSearch(String startIdx, String endIdx, OpenApiParamDto openApiParamDto) {
+    public OpenApiResponseDto requestRecipeSearch(int startIdx, int endIdx, OpenApiParamDto openApiParamDto) {
 
         URI uri = openApiBuilderService.buildUriByRecipeName(startIdx, endIdx,openApiParamDto);
 
@@ -45,5 +45,10 @@ public class OpenApiRecipeSearchService {
 
         return openApiResponseDto;
 //        log.info("[OpenApiRecipeSearchService requestRecipeSearch] result = {}", openApiResponseDto.getRawDto().get(0).getRecipeName());
+    }
+
+    public int getTotalCount(int startIdx, int endIdx, OpenApiParamDto openApiParamDto) {
+        OpenApiResponseDto openApiResponseDto = requestRecipeSearch(startIdx, endIdx, openApiParamDto);
+        return openApiResponseDto.getTotalCnt();
     }
 }

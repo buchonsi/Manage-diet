@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -26,15 +27,17 @@ public class OpenApiBuilderService {
     private static final String RECIPE_API_CODE = "COOKRCP01";
     private static final String RETURN_TYPE = "json";
 
-    public URI buildUriByRecipeName(String startIdx, String endIdx, OpenApiParamDto openApiParamDto) {
-        String params = buildParamPath(openApiParamDto);
+    public URI buildUriByRecipeName(int startIdx, int endIdx, OpenApiParamDto openApiParamDto) {
+        String params = "";
+        if (!Objects.isNull(openApiParamDto)) {
+            params = buildParamPath(openApiParamDto);
+        }
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(BASE_URL);
-        URI uri = uriBuilder.path(openApiKey)
-                .pathSegment(RECIPE_API_CODE, RETURN_TYPE, startIdx, endIdx, params)
+        URI uri = UriComponentsBuilder.fromHttpUrl(BASE_URL)
+                .pathSegment(openApiKey, RECIPE_API_CODE, RETURN_TYPE, String.valueOf(startIdx), String.valueOf(endIdx), params)
                 .build().toUri();
 
-        log.info(uri.toString());
+        log.info("[OpenApiBuilderService buildUriByRecipeName] uri : {}", uri);
         return uri;
     }
 

@@ -12,6 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class OpenApiResponseDto {
 
+    @JsonProperty("total_count")
+    private int totalCnt;
+
     @JsonProperty("row")
     private List<RawDto> rawDto;
 }

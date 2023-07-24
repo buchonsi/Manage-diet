@@ -38,6 +38,10 @@ dependencies {
     testImplementation('org.spockframework:spock-core:2.1-groovy-3.0')
     testImplementation('org.spockframework:spock-spring:2.1-groovy-3.0')
     testImplementation('net.bytebuddy:byte-buddy:1.12.10')
+
+    //testContainer
+    testImplementation 'org.testcontainers:spock:1.18.3'
+    testImplementation "org.testcontainers:mysql:1.18.3"
 }
 
 tasks.named('test') {

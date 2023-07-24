@@ -13,8 +13,8 @@ class OpenApiRecipeSearchServiceTest extends Specification {
 
     def "Api get test(인덱스 5)"() {
         given:
-        def startIdx = "1"
-        def endIdx = "5"
+        def startIdx = 1
+        def endIdx = 5
         def openApiParamDto = OpenApiParamDto.builder()
                 .recipeName("파스타")
                 .build()
@@ -27,8 +27,8 @@ class OpenApiRecipeSearchServiceTest extends Specification {
 
     def "Api get test - raw 데이터 null일 때"() {
         given:
-        def startIdx = "1"
-        def endIdx = "5"
+        def startIdx = 1
+        def endIdx = 5
         def openApiParamDto = OpenApiParamDto.builder()
                 .recipeName("이상한거")
                 .build()
