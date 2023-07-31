@@ -38,7 +38,6 @@ public class RecipeInitService {
             OpenApiResponseDto openApiResponseDto = openApiRecipeSearchService.requestRecipeSearch(startIdx, endIdx, null);
 
             if (Objects.isNull(openApiResponseDto)) {
-
                 break;
             }
 
@@ -46,6 +45,12 @@ public class RecipeInitService {
                     openApiResponseDto.getRawDto().stream()
                             .map(rawDto -> Recipe.builder()
                                     .recipeName(rawDto.getRecipeName())
+                                    .calorie(rawDto.getCalorie())
+                                    .carbohydrate(rawDto.getCarbohydrate())
+                                    .protein(rawDto.getProtein())
+                                    .fat(rawDto.getFat())
+                                    .sodium(rawDto.getSodium())
+                                    .image(rawDto.getImage())
                                     .build())
                             .collect(Collectors.toList()));
             startIdx += 1000;
