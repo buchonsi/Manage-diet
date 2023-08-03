@@ -3,6 +3,7 @@ package com.yoons.managediet.api.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yoons.managediet.api.dto.OpenApiParamDto;
+import com.yoons.managediet.config.KeyMappingConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,9 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class OpenApiBuilderService {
 
-    @Value("${OPEN.API.KEY}")
-    private String openApiKey;
-
+    private final KeyMappingConfig keyMappingConfig;
     private final ObjectMapper objectMapper;
 
     private static final String BASE_URL = "https://openapi.foodsafetykorea.go.kr/api/";
@@ -34,7 +33,7 @@ public class OpenApiBuilderService {
         }
 
         URI uri = UriComponentsBuilder.fromHttpUrl(BASE_URL)
-                .pathSegment(openApiKey, RECIPE_API_CODE, RETURN_TYPE, String.valueOf(startIdx), String.valueOf(endIdx), params)
+                .pathSegment(keyMappingConfig.getOpenApi(), RECIPE_API_CODE, RETURN_TYPE, String.valueOf(startIdx), String.valueOf(endIdx), params)
                 .build().toUri();
 
         log.info("[OpenApiBuilderService buildUriByRecipeName] uri : {}", uri);
