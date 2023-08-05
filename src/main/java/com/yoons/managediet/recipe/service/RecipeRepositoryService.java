@@ -41,6 +41,11 @@ public class RecipeRepositoryService {
         return recipeRepository.findByRecipeNameContaining(recipeName);
     }
 
+    @Transactional(readOnly = true)
+    public List<Recipe> getRecipeByMaxCalorie(double calorie) {
+        return recipeRepository.findByCalorieLessThanEqual(calorie);
+    }
+
     public void deleteAll() {
         recipeRepository.deleteAll();
     }
