@@ -1,6 +1,7 @@
 package com.yoons.managediet.recipe.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yoons.managediet.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recipe {
+public class Recipe extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

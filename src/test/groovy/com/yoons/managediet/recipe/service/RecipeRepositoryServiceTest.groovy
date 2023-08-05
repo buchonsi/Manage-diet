@@ -89,6 +89,41 @@ class RecipeRepositoryServiceTest extends Specification {
         "로제 파스타"          |       0
     }
 
+    def "getRecipeByMaxCalorie 칼로리 기준 조건 검색"() {
+        given:
+        def recipe1 = Recipe.builder()
+                .recipeName("새우 두부 계란찜")
+                .calorie(220)
+                .carbohydrate(3)
+                .protein(14)
+                .fat(17)
+                .sodium(99)
+                .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00028_1.png")
+                .build()
+        def recipe2 = Recipe.builder()
+                .recipeName("부추 콩가루 찜")
+                .calorie(215)
+                .carbohydrate(20)
+                .protein(14)
+                .fat(9)
+                .sodium(240)
+                .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00029_1.png")
+                .build()
+        recipeRepositoryService.saveAll(Arrays.asList(recipe1, recipe2))
+
+        when:
+        def result = recipeRepositoryService.getRecipeByMaxCalorie(calorie)
+
+        then:
+        result.size() == expectedResult
+
+        where:
+        calorie         |       expectedResult
+        210             |       0
+        218             |       1
+        220             |       2
+    }
+
     def "deleteAll test"() {
         given:
         def recipe1 = Recipe.builder()
