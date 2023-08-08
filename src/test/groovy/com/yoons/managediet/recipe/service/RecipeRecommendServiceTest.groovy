@@ -1,7 +1,7 @@
 package com.yoons.managediet.recipe.service
 
-
 import com.yoons.managediet.recipe.entity.Recipe
+import com.yoons.managediet.recipe.entity.RecipeType
 import spock.lang.Specification
 
 class RecipeRecommendServiceTest extends Specification {
@@ -12,6 +12,9 @@ class RecipeRecommendServiceTest extends Specification {
     private List<Recipe> recipeList
 
     def setup() {
+        def type1 = RecipeType.builder().id(1L).typeName("반찬").build()
+        def type2 = RecipeType.builder().id(2L).typeName("국").build()
+
         recipeList = new ArrayList<>()
         recipeList.addAll(
                 Recipe.builder()
@@ -22,6 +25,7 @@ class RecipeRecommendServiceTest extends Specification {
                         .fat(17)
                         .sodium(99)
                         .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00028_1.png")
+                        .recipeType(type1)
                         .build(),
                 Recipe.builder()
                         .recipeName("부추 콩가루 찜")
@@ -31,20 +35,22 @@ class RecipeRecommendServiceTest extends Specification {
                         .fat(9)
                         .sodium(240)
                         .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00029_1.png")
+                        .recipeType(type1)
                         .build(),
                 Recipe.builder()
-                        .recipeName("우렁된장소스 배추롤")
+                        .recipeName("우렁된장국")
                         .calorie(110.3)
                         .carbohydrate(43)
                         .protein(22.3)
                         .fat(7.2)
                         .sodium(976)
                         .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00636_1.png")
+                        .recipeType(type2)
                         .build()
         )
     }
 
-    def "recommendRecipeList - 결과 값이 정렬 조회되는지 확인"() {
+    def "recommendRecipeList(double calorie) - 결과 값이 정렬 조회되는지 확인"() {
         given:
         def calorie = 220.0
 

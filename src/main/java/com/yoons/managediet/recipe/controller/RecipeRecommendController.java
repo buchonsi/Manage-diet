@@ -1,11 +1,10 @@
 package com.yoons.managediet.recipe.controller;
 
-import com.yoons.managediet.recipe.dto.InputDto;
 import com.yoons.managediet.recipe.service.RecipeRecommendService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,8 +13,13 @@ public class RecipeRecommendController {
 
     private final RecipeRecommendService recipeRecommendService;
 
-    @GetMapping("/recipe/search/calorie")
-    public ResponseEntity<Object> getRecommendRecipeList(@RequestBody InputDto inputDto) {
-        return ResponseEntity.ok(recipeRecommendService.recommendRecipeList(inputDto.getCalorie()));
+    @GetMapping("/recipe/search/{calorie}")
+    public ResponseEntity<Object> getRecommendRecipeList(@PathVariable("calorie") Long calorie) {
+        return ResponseEntity.ok(recipeRecommendService.recommendRecipeList(calorie));
+    }
+
+    @GetMapping("/recipe/search/{calorie}/{typeId}")
+    public ResponseEntity<Object> getRecipeByType(@PathVariable("calorie") double calorie, @PathVariable("typeId") Long typeId) {
+        return ResponseEntity.ok(recipeRecommendService.recommendRecipeList(calorie, typeId));
     }
 }

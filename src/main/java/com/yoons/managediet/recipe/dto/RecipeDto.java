@@ -14,4 +14,5 @@ public class RecipeDto {
     private double fat;                 //지방
     private double sodium;              //나트륨
     private String image;               //이미지(대)
+    private String type;                //레시피 타입
 }

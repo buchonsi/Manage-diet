@@ -16,11 +16,21 @@ public class RecipeRecommendService {
     private final RecipeRepositoryService recipeRepositoryService;
 
     public List<RecipeDto> recommendRecipeList(double calorie) {
-        return recipeRepositoryService.getRecipeByMaxCalorie(calorie).stream()
+        List<Recipe> recipeList = recipeRepositoryService.getRecipeByMaxCalorie(calorie);
+        return getRecipeDtoList(recipeList);
+    }
+
+    public List<RecipeDto> recommendRecipeList(double calorie, Long type) {
+        List<Recipe> recipeList = recipeRepositoryService.getRecipeByMaxCalorieAndType(calorie, type);
+        return getRecipeDtoList(recipeList);
+    }
+
+    private List<RecipeDto> getRecipeDtoList(List<Recipe> recipeList) {
+        return recipeList.stream()
                 .map(recipe -> convertToRecipeDto(recipe))
                 .sorted(Comparator.comparing(RecipeDto::getCalorie).reversed())
                 .collect(Collectors.toList())
-                ;
+        ;
     }
 
     private RecipeDto convertToRecipeDto(Recipe recipe) {
@@ -33,6 +43,7 @@ public class RecipeRecommendService {
                 .fat(recipe.getFat())
                 .sodium(recipe.getSodium())
                 .image(recipe.getImage())
+                .type(recipe.getRecipeType().getTypeName())
                 .build();
     }
 }
