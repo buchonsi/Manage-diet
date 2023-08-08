@@ -1,10 +1,8 @@
 package com.yoons.managediet.recipe.controller
 
-import com.yoons.managediet.recipe.dto.InputDto
 import com.yoons.managediet.recipe.dto.RecipeDto
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.service.RecipeRecommendService
-import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper
@@ -62,16 +60,14 @@ class RecipeRecommendControllerTest extends Specification {
 
     def "Get /recipe/search/calorie"() {
         given:
-        def inputDto = new InputDto(220)
+        def calorie = 220
 
         when:
-        def resultAction = mockMvc.perform(get("/recipe/search/calorie")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(inputDto)))
+        def resultAction = mockMvc.perform(get("/recipe/search/" + calorie))
 
         then:
         1 * recipeRecommendService.recommendRecipeList(argument -> {
-            assert argument == inputDto.getCalorie()
+            assert argument == calorie
         }) >> recipeList
 
         resultAction.andExpect(status().isOk())
