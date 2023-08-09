@@ -19,12 +19,17 @@ public class Recipe extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String recipeName;
+    @Column(columnDefinition = "DECIMAL(10,2)")
     private double calorie;
-    private double carbohydrate;        //탄수화물
-    private double protein;             //단백질
-    private double fat;                 //지방
-    private double sodium;              //나트륨
-    private String image;            //이미지(대)
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private double carbohydrate;                    //탄수화물
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private double protein;                         //단백질
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private double fat;                             //지방
+    @Column(columnDefinition = "DECIMAL(10,2)")
+    private double sodium;                          //나트륨
+    private String image;                           //이미지(대)
 
     @ManyToOne
     @JoinColumn(name = "type")

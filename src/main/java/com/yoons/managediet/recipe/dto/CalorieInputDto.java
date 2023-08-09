@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InputDto {
+public class CalorieInputDto {
     private double calorie;
 }
