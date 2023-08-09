@@ -1,5 +1,6 @@
 package com.yoons.managediet.recipe.service;
 
+import com.yoons.managediet.recipe.dto.OutputDto;
 import com.yoons.managediet.recipe.dto.RecipeDto;
 import com.yoons.managediet.recipe.entity.Recipe;
 import lombok.RequiredArgsConstructor;
@@ -15,22 +16,23 @@ public class RecipeRecommendService {
 
     private final RecipeRepositoryService recipeRepositoryService;
 
-    public List<RecipeDto> recommendRecipeList(double calorie) {
+    public OutputDto<RecipeDto> recommendRecipeList(double calorie) {
         List<Recipe> recipeList = recipeRepositoryService.getRecipeByMaxCalorie(calorie);
-        return getRecipeDtoList(recipeList);
+        return getRecommendRecipeList(recipeList);
     }
 
-    public List<RecipeDto> recommendRecipeList(double calorie, Long type) {
+    public OutputDto<RecipeDto> recommendRecipeList(double calorie, Long type) {
         List<Recipe> recipeList = recipeRepositoryService.getRecipeByMaxCalorieAndType(calorie, type);
-        return getRecipeDtoList(recipeList);
+        return getRecommendRecipeList(recipeList);
     }
 
-    private List<RecipeDto> getRecipeDtoList(List<Recipe> recipeList) {
-        return recipeList.stream()
+    private OutputDto<RecipeDto> getRecommendRecipeList(List<Recipe> recipeList) {
+        //@Todo recipeList 가 null일 때 exception 처리?
+        List<RecipeDto> recipeDtoList = recipeList.stream()
                 .map(recipe -> convertToRecipeDto(recipe))
                 .sorted(Comparator.comparing(RecipeDto::getCalorie).reversed())
-                .collect(Collectors.toList())
-        ;
+                .collect(Collectors.toList());
+        return new OutputDto<>(recipeDtoList.size(), recipeDtoList);
     }
 
     private RecipeDto convertToRecipeDto(Recipe recipe) {
