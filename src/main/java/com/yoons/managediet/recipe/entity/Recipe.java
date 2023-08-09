@@ -1,22 +1,19 @@
 package com.yoons.managediet.recipe.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.yoons.managediet.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "recipe")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recipe {
+public class Recipe extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +25,8 @@ public class Recipe {
     private double fat;                 //지방
     private double sodium;              //나트륨
     private String image;            //이미지(대)
+
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private RecipeType recipeType;
 }
