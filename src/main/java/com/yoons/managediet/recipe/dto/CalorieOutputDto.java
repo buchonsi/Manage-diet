@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class OutputDto<T> {
+public class CalorieOutputDto<T> {
     private int totalCount;
     private List<T> values;
 }
