@@ -1,9 +1,11 @@
-package com.yoons.managediet.recipe.dto;
+package com.yoons.managediet.diet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -14,4 +16,5 @@ public class DailyInputDto {
     private Long morningRecipeId;
     private Long afternoonRecipeId;
     private Long nightRecipeId;
+    private LocalDateTime dietAppliedDate;
 }
