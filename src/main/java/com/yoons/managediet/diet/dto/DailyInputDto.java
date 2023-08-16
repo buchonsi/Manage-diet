@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class DailyInputDto {
-    private double calorie;
+    private double targetCalorie;
     private Long morningRecipeId;
     private Long afternoonRecipeId;
     private Long nightRecipeId;
