@@ -1,7 +1,6 @@
 package com.yoons.managediet.recipe.service
 
-import com.yoons.managediet.recipe.dto.CalorieOutputDto
-import com.yoons.managediet.recipe.dto.RecipeDto
+
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.entity.RecipeType
 import spock.lang.Specification

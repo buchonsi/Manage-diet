@@ -19,7 +19,9 @@ public class Diet extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double totalCalorie;
+    private double targetCalorie;
+    private double dietTotalCalorie;
+    private double remainedCalorie;
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name = "time")

@@ -65,7 +65,7 @@ class RecipeRecommendControllerTest extends Specification {
 
     def "Get /recipe/search/{calorie}"() {
         given:
-        def calorie = 220L
+        def calorie = 220
 
         when:
         def resultAction = mockMvc.perform(get("/recipe/search/" + calorie))

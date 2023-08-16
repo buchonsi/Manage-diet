@@ -30,4 +30,8 @@ public class RecipeTypeRepositoryService {
     public Optional<RecipeType> findByTypeName(String typeName) {
         return recipeTypeRepository.findByTypeName(typeName);
     }
+
+    public void deleteAll() {
+        recipeTypeRepository.deleteAll();
+    }
 }
