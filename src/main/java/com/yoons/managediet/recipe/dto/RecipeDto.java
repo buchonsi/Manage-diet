@@ -1,5 +1,6 @@
 package com.yoons.managediet.recipe.dto;
 
+import com.yoons.managediet.recipe.entity.Recipe;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,4 +16,18 @@ public class RecipeDto {
     private double sodium;              //나트륨
     private String image;               //이미지(대)
     private String type;                //레시피 타입
+
+    public static RecipeDto from(Recipe recipe) {
+        return RecipeDto.builder()
+                .id(recipe.getId())
+                .recipeName(recipe.getRecipeName())
+                .calorie(recipe.getCalorie())
+                .carbohydrate(recipe.getCarbohydrate())
+                .protein(recipe.getProtein())
+                .fat(recipe.getFat())
+                .sodium(recipe.getSodium())
+                .image(recipe.getImage())
+                .type(recipe.getRecipeType().getTypeName())
+                .build();
+    }
 }

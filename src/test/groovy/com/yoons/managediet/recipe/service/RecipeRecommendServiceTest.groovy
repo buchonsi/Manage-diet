@@ -1,10 +1,10 @@
 package com.yoons.managediet.recipe.service
 
+import com.yoons.managediet.AbstractIntegrationBaseTest
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.entity.RecipeType
-import spock.lang.Specification
 
-class RecipeRecommendServiceTest extends Specification {
+class RecipeRecommendServiceTest extends AbstractIntegrationBaseTest {
 
 
     private RecipeRepositoryService recipeRepositoryService = Mock()
@@ -56,7 +56,7 @@ class RecipeRecommendServiceTest extends Specification {
 
         when:
         recipeRepositoryService.getRecipeByMaxCalorie(calorie) >> recipeList
-        def result = recipeRecommendService.recommendRecipeList(calorie)
+        def result = recipeRecommendService.recommendRecipeList(calorie).getValues()
 
         then:
         result.get(0).getCalorie() > result.get(1).getCalorie()

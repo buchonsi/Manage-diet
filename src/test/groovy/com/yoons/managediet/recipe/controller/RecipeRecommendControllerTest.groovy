@@ -1,11 +1,10 @@
 package com.yoons.managediet.recipe.controller
 
+import com.yoons.managediet.recipe.dto.CalorieOutputDto
 import com.yoons.managediet.recipe.dto.RecipeDto
-import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.service.RecipeRecommendService
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -17,8 +16,7 @@ class RecipeRecommendControllerTest extends Specification {
 
     private MockMvc mockMvc
     private RecipeRecommendService recipeRecommendService = Mock()
-    private List<Recipe> recipeList
-    private ObjectMapper objectMapper = new ObjectMapper()
+    private CalorieOutputDto<RecipeDto> calorieOutputDto
 
 
     def setup() {
@@ -26,7 +24,7 @@ class RecipeRecommendControllerTest extends Specification {
                 .standaloneSetup(new RecipeRecommendController(recipeRecommendService))
                 .build()
 
-        recipeList = new ArrayList<>()
+        def recipeList = new ArrayList<>()
         recipeList.addAll(
                 RecipeDto.builder()
                         .recipeName("새우 두부 계란찜")
@@ -56,9 +54,16 @@ class RecipeRecommendControllerTest extends Specification {
                         .image("http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00636_1.png")
                         .build()
         )
+
+        calorieOutputDto = CalorieOutputDto.builder()
+                .totalCount(recipeList.size())
+                .values(recipeList)
+                .build()
+
+
     }
 
-    def "Get /recipe/search/calorie"() {
+    def "Get /recipe/search/{calorie}"() {
         given:
         def calorie = 220
 
@@ -68,7 +73,7 @@ class RecipeRecommendControllerTest extends Specification {
         then:
         1 * recipeRecommendService.recommendRecipeList(argument -> {
             assert argument == calorie
-        }) >> recipeList
+        }) >> calorieOutputDto
 
         resultAction.andExpect(status().isOk())
                 .andExpect(handler().handlerType(RecipeRecommendController.class))

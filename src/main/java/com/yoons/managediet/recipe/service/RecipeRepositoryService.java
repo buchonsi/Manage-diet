@@ -3,6 +3,7 @@ package com.yoons.managediet.recipe.service;
 import com.yoons.managediet.recipe.entity.Recipe;
 import com.yoons.managediet.recipe.respository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RecipeRepositoryService {
@@ -29,6 +31,15 @@ public class RecipeRepositoryService {
             return null;
         }
         return recipeRepository.save(recipe);
+    }
+    
+    //@Todo exception 처리 할지
+    public Recipe findById(Long id) {
+        Recipe recipe = recipeRepository.findById(id).orElse(null);
+        if (Objects.isNull(recipe)) {
+            log.error("Recipe is Not found");
+        }
+        return recipe;
     }
 
     @Transactional(readOnly = true)

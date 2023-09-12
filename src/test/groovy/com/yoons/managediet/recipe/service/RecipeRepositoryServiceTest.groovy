@@ -1,13 +1,13 @@
 package com.yoons.managediet.recipe.service
 
+import com.yoons.managediet.AbstractIntegrationBaseTest
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.entity.RecipeType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 
 @SpringBootTest
-class RecipeRepositoryServiceTest extends Specification {
+class RecipeRepositoryServiceTest extends AbstractIntegrationBaseTest {
 
     @Autowired
     RecipeRepositoryService recipeRepositoryService
@@ -136,8 +136,8 @@ class RecipeRepositoryServiceTest extends Specification {
         )
 
         recipeTypeRepositoryService.saveAll(recipeTypeList)
-        def savedRecipeTypeList = recipeTypeRepositoryService.findAll()
 
+        def savedRecipeTypeList = recipeTypeRepositoryService.findAll()
         def recipe1 = Recipe.builder()
                 .recipeName("새우 두부 계란찜")
                 .calorie(220)
@@ -170,17 +170,18 @@ class RecipeRepositoryServiceTest extends Specification {
                 .build()
         recipeRepositoryService.saveAll(Arrays.asList(recipe1, recipe2, recipe3))
 
-        when:
-        def result = recipeRepositoryService.getRecipeByMaxCalorieAndType(calorie, typeId)
 
+        when:
+        def typeId = savedRecipeTypeList.get(0).getId()
+        def result = recipeRepositoryService.getRecipeByMaxCalorieAndType(calorie, typeId)
         then:
         result.size() == expectedResult
 
         where:
-        calorie         |      typeId     |    expectedResult
-        210             |      2L         |    1
-        218             |      1L         |    1
-        220             |      1L         |    2
+        calorie         |      expectedResult
+        210             |      0
+        218             |      1
+        220             |      2
     }
 
     def "deleteAll test"() {

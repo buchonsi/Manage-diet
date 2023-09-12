@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -83,14 +82,11 @@ public class RecipeInitService {
        }
 
         return recipeTypeRepositoryService.findByTypeName(typeName)
-                .orElseGet(() -> {
-                    RecipeType savedRecipeType = recipeTypeRepositoryService.save(
-                            RecipeType.builder()
-                                    .typeName(typeName)
-                                    .build()
-                    );
-                    return savedRecipeType;
-                });
+                .orElseGet(() -> recipeTypeRepositoryService.save(
+                        RecipeType.builder()
+                                .typeName(typeName)
+                                .build()
+                ));
     }
 
     private boolean hasRecipeData() {

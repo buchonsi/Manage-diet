@@ -1,11 +1,11 @@
 package com.yoons.managediet.recipe.service
 
+import com.yoons.managediet.AbstractIntegrationBaseTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 
 @SpringBootTest
-class RecipeInitServiceTest extends Specification {
+class RecipeInitServiceTest extends AbstractIntegrationBaseTest {
 
     @Autowired
     RecipeInitService recipeInitService
