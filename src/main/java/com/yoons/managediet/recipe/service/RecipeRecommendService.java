@@ -29,23 +29,23 @@ public class RecipeRecommendService {
     private CalorieOutputDto<RecipeDto> getRecommendRecipeList(List<Recipe> recipeList) {
         //@Todo recipeList 가 null일 때 exception 처리?
         List<RecipeDto> recipeDtoList = recipeList.stream()
-                .map(recipe -> convertToRecipeDto(recipe))
+                .map(RecipeDto::from)
                 .sorted(Comparator.comparing(RecipeDto::getCalorie).reversed())
                 .collect(Collectors.toList());
         return new CalorieOutputDto<>(recipeDtoList.size(), recipeDtoList);
     }
 
-    private RecipeDto convertToRecipeDto(Recipe recipe) {
-        return RecipeDto.builder()
-                .id(recipe.getId())
-                .recipeName(recipe.getRecipeName())
-                .calorie(recipe.getCalorie())
-                .carbohydrate(recipe.getCarbohydrate())
-                .protein(recipe.getProtein())
-                .fat(recipe.getFat())
-                .sodium(recipe.getSodium())
-                .image(recipe.getImage())
-                .type(recipe.getRecipeType().getTypeName())
-                .build();
-    }
+//    private RecipeDto convertToRecipeDto(Recipe recipe) {
+//        return RecipeDto.builder()
+//                .id(recipe.getId())
+//                .recipeName(recipe.getRecipeName())
+//                .calorie(recipe.getCalorie())
+//                .carbohydrate(recipe.getCarbohydrate())
+//                .protein(recipe.getProtein())
+//                .fat(recipe.getFat())
+//                .sodium(recipe.getSodium())
+//                .image(recipe.getImage())
+//                .type(recipe.getRecipeType().getTypeName())
+//                .build();
+//    }
 }

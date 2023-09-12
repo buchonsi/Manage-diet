@@ -1,11 +1,10 @@
 package com.yoons.managediet.recipe.service
 
-
+import com.yoons.managediet.AbstractIntegrationBaseTest
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.entity.RecipeType
-import spock.lang.Specification
 
-class RecipeRecommendServiceTest extends Specification {
+class RecipeRecommendServiceTest extends AbstractIntegrationBaseTest {
 
 
     private RecipeRepositoryService recipeRepositoryService = Mock()

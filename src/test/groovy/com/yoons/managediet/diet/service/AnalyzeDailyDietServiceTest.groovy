@@ -1,17 +1,19 @@
 package com.yoons.managediet.diet.service
 
-import com.yoons.managediet.diet.dto.DailyInputDto
-import com.yoons.managediet.diet.entity.Diet
+import com.yoons.managediet.AbstractIntegrationBaseTest
+import com.yoons.managediet.diet.dto.DietInputDto
+import com.yoons.managediet.diet.entity.TypeOfTime
 import com.yoons.managediet.recipe.entity.Recipe
 import com.yoons.managediet.recipe.entity.RecipeType
 import com.yoons.managediet.recipe.service.RecipeRepositoryService
 import com.yoons.managediet.recipe.service.RecipeTypeRepositoryService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
+
+import java.time.LocalDateTime
 
 @SpringBootTest
-class AnalyzeDailyDietServiceTest extends Specification {
+class AnalyzeDailyDietServiceTest extends AbstractIntegrationBaseTest {
 
     @Autowired
     AnalyzeDailyDietService analyzeDailyDietService
@@ -21,7 +23,7 @@ class AnalyzeDailyDietServiceTest extends Specification {
     @Autowired
     RecipeTypeRepositoryService recipeTypeRepositoryService
 
-    DailyInputDto dailyInputDto
+    DietInputDto dailyInputDto
 
 
     def setup() {
@@ -41,22 +43,23 @@ class AnalyzeDailyDietServiceTest extends Specification {
         def recipe1 = savedRecipeList.get(0)
         def recipe2 = savedRecipeList.get(1)
         def recipe3 = savedRecipeList.get(2)
+        def dateTime = LocalDateTime.now()
 
-        DailyInputDto dailyInputDto = DailyInputDto.builder()
-                .targetCalorie(2000)
-                .morningRecipeId(recipe1.getId())
-                .afternoonRecipeId(recipe2.getId())
-                .nightRecipeId(recipe3.getId())
+        DietInputDto dailyInputDto = DietInputDto.builder()
+                .totalCalorie(545.3)
+                .dietAppliedDate(dateTime)
+                .recipeList(Arrays.asList(recipe1.getId(), recipe2.getId(), recipe3.getId()))
+                .typeOfTime(TypeOfTime.MORNING)
                 .build()
+
         when:
-        def result = analyzeDailyDietService.save(dailyInputDto)
+        def result = analyzeDailyDietService.saveAll(dailyInputDto)
 
         then:
         result.getDietTotalCalorie() == (recipe1.getCalorie() + recipe2.getCalorie() + recipe3.getCalorie())
-        result.getRemainedCalorie() == (2000 - recipe1.getCalorie() - recipe2.getCalorie() - recipe3.getCalorie())
-        result.getMorningRecipe().getRecipeName() == recipe1.getRecipeName()
-        result.getAfternoonRecipe().getRecipeName() == recipe2.getRecipeName()
-        result.getNightRecipe().getRecipeName() == recipe3.getRecipeName()
+        result.getDietAppliedDate() == dateTime
+        result.getRecipeList().size() == 3
+        result.getTypeOfTime() == TypeOfTime.MORNING
     }
 
     private void deleteAll() {
