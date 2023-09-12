@@ -1,6 +1,5 @@
 package com.yoons.managediet.diet.entity;
 
-import com.yoons.managediet.BaseTimeEntity;
 import com.yoons.managediet.recipe.entity.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,29 +14,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Builder
-public class Diet extends BaseTimeEntity {
+public class Diet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double targetCalorie;
-    private double dietTotalCalorie;
-    private double remainedCalorie;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "time")
-//    private TypeOfTime typeOfTime;
-
-    @ManyToOne
-    @JoinColumn(name = "morning_recipe")
-    private Recipe morningRecipe;
-
-    @ManyToOne
-    @JoinColumn(name = "afternoon_recipe")
-    private Recipe afternoonRecipe;
-
-    @ManyToOne
-    @JoinColumn(name = "night_recipe")
-    private Recipe nightRecipe;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "time")
+    private TypeOfTime typeOfTime;
 
     private LocalDateTime dietAppliedDate;
+
+    @ManyToOne
+    private Recipe recipe;
 }
