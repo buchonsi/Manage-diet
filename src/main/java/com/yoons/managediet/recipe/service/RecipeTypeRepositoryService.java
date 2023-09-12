@@ -1,6 +1,5 @@
 package com.yoons.managediet.recipe.service;
 
-import com.yoons.managediet.recipe.entity.Recipe;
 import com.yoons.managediet.recipe.entity.RecipeType;
 import com.yoons.managediet.recipe.respository.RecipeTypeRepository;
 import lombok.RequiredArgsConstructor;

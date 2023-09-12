@@ -6,21 +6,18 @@ import com.yoons.managediet.diet.entity.Diet;
 import com.yoons.managediet.diet.repository.DietRepository;
 import com.yoons.managediet.recipe.entity.Recipe;
 import com.yoons.managediet.recipe.respository.RecipeRepository;
-import com.yoons.managediet.recipe.service.RecipeRecommendService;
-import com.yoons.managediet.recipe.service.RecipeRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AnalyzeDailyDietService {
-    private final RecipeRecommendService recipeRecommendService;
-    private final RecipeRepositoryService recipeRepositoryService;
     private final DietRepository dietRepository;
     private final RecipeRepository recipeRepository;
 

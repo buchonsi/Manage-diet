@@ -6,6 +6,7 @@ import com.yoons.managediet.diet.service.AnalyzeDailyDietService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,7 +15,7 @@ public class DietController {
     private final AnalyzeDailyDietService analyzeDailyDietService;
 
     @PostMapping("/daily/save")
-    public ResponseEntity<DietOutputDto> dailyDietSave(DietInputDto dietInputDto) {
+    public ResponseEntity<DietOutputDto> dailyDietSave(@RequestBody DietInputDto dietInputDto) {
         return ResponseEntity.ok(analyzeDailyDietService.saveAll(dietInputDto));
     }
 }

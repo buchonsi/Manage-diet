@@ -34,18 +34,4 @@ public class RecipeRecommendService {
                 .collect(Collectors.toList());
         return new CalorieOutputDto<>(recipeDtoList.size(), recipeDtoList);
     }
-
-//    private RecipeDto convertToRecipeDto(Recipe recipe) {
-//        return RecipeDto.builder()
-//                .id(recipe.getId())
-//                .recipeName(recipe.getRecipeName())
-//                .calorie(recipe.getCalorie())
-//                .carbohydrate(recipe.getCarbohydrate())
-//                .protein(recipe.getProtein())
-//                .fat(recipe.getFat())
-//                .sodium(recipe.getSodium())
-//                .image(recipe.getImage())
-//                .type(recipe.getRecipeType().getTypeName())
-//                .build();
-//    }
 }

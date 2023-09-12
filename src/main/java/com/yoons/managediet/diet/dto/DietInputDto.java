@@ -1,5 +1,6 @@
 package com.yoons.managediet.diet.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yoons.managediet.diet.entity.Diet;
 import com.yoons.managediet.diet.entity.TypeOfTime;
 import com.yoons.managediet.recipe.entity.Recipe;
@@ -18,6 +19,8 @@ import java.util.List;
 public class DietInputDto {
     private double totalCalorie;
     private List<Long> recipeList;
+
+    @JsonFormat(pattern = "YYYY-MM-DD")
     private LocalDateTime dietAppliedDate;
     private TypeOfTime typeOfTime;
 

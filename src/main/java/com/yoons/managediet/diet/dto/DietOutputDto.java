@@ -2,7 +2,6 @@ package com.yoons.managediet.diet.dto;
 
 import com.yoons.managediet.diet.entity.Diet;
 import com.yoons.managediet.diet.entity.TypeOfTime;
-import com.yoons.managediet.recipe.dto.RecipeDto;
 import com.yoons.managediet.recipe.entity.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
