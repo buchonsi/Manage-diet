@@ -7,9 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-@Entity(name = "diet")
+@Entity
+@Table(name = "diet", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "time",
+                "applied_date",
+                "recipe_id"
+        })
+})
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,8 +29,8 @@ public class Diet {
     @Enumerated(EnumType.STRING)
     @Column(name = "time")
     private TypeOfTime typeOfTime;
-
-    private LocalDateTime dietAppliedDate;
+    @Column(name = "applied_date")
+    private LocalDate dietAppliedDate;
 
     @ManyToOne
     private Recipe recipe;
