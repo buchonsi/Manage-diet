@@ -26,7 +26,7 @@ public class RecipeRecommendService {
         return getRecommendRecipeList(recipeList);
     }
 
-    private CalorieOutputDto<RecipeDto> getRecommendRecipeList(List<Recipe> recipeList) {
+    public CalorieOutputDto<RecipeDto> getRecommendRecipeList(List<Recipe> recipeList) {
         //@Todo recipeList 가 null일 때 exception 처리?
         List<RecipeDto> recipeDtoList = recipeList.stream()
                 .map(RecipeDto::from)

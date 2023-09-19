@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class DietController {
     private final AnalyzeDailyDietService analyzeDailyDietService;
 
+//    @GetMapping("/diet/daily")
+//    public ResponseEntity<DailyOutputDto> getOneDayDiet(@RequestAttribute LocalDate appliedDate) {
+//        return ResponseEntity.ok(analyzeDailyDietService.getOneDayDiet(appliedDate));
+//    }
+
     @PostMapping("/daily/save")
     public ResponseEntity<DietOutputDto> dailyDietSave(@RequestBody DietInputDto dietInputDto) {
-        return ResponseEntity.ok(analyzeDailyDietService.saveAll(dietInputDto));
+        return ResponseEntity.ok(analyzeDailyDietService.saveDiet(dietInputDto));
     }
 }

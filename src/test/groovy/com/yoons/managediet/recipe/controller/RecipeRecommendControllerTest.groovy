@@ -59,8 +59,6 @@ class RecipeRecommendControllerTest extends Specification {
                 .totalCount(recipeList.size())
                 .values(recipeList)
                 .build()
-
-
     }
 
     def "Get /recipe/search/{calorie}"() {
