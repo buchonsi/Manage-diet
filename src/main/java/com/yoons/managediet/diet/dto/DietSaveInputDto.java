@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DietInputDto {
+public class DietSaveInputDto {
     //@TODO 지워도 될 것 같음
     private double totalCalorie;
     private List<Long> recipeList;

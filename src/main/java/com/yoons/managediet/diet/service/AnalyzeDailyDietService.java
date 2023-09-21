@@ -1,7 +1,7 @@
 package com.yoons.managediet.diet.service;
 
 import com.yoons.managediet.diet.dto.DailyOutputDto;
-import com.yoons.managediet.diet.dto.DietInputDto;
+import com.yoons.managediet.diet.dto.DietSaveInputDto;
 import com.yoons.managediet.diet.dto.DietOutputDto;
 import com.yoons.managediet.diet.dto.DietRecipeOutputDto;
 import com.yoons.managediet.diet.entity.Diet;
@@ -32,27 +32,27 @@ public class AnalyzeDailyDietService {
     private final RecipeRepository recipeRepository;
 
     @Transactional
-    public DietOutputDto saveDiet(DietInputDto dietInputDto) {
+    public DietOutputDto saveDiet(DietSaveInputDto dietSaveInputDto) {
         //validate
-        if (validateDailyDiet(dietInputDto)) {
+        if (validateDailyDiet(dietSaveInputDto)) {
             //@TODO exception 처리
         }
 
         //삭제하고
-        deleteDietByDateAndDaily(dietInputDto);
+        deleteDietByDateAndDaily(dietSaveInputDto);
 
         //저장
-        List<Diet> savedDietList = dietRepositoryService.saveAll(convertToDiet(dietInputDto));
+        List<Diet> savedDietList = dietRepositoryService.saveAll(convertToDiet(dietSaveInputDto));
         //@Todo 개선점 -> totalCalorie를 다시 계산해서 outputDto로 변환해야하는지
         return DietOutputDto.of(
-                dietInputDto.getDietAppliedDate(),
-                dietInputDto.getTypeOfTime(),
+                dietSaveInputDto.getDietAppliedDate(),
+                dietSaveInputDto.getTypeOfTime(),
                 getRecipeAndCalorie(savedDietList)
                 );
     }
 
-    public void deleteDietByDateAndDaily(DietInputDto dietInputDto) {
-        dietRepositoryService.deleteAllByDailyAndDate(dietInputDto.getDietAppliedDate().format(DateTimeFormatter.ISO_DATE), dietInputDto.getTypeOfTime().name());
+    public void deleteDietByDateAndDaily(DietSaveInputDto dietSaveInputDto) {
+        dietRepositoryService.deleteAllByDailyAndDate(dietSaveInputDto.getDietAppliedDate().format(DateTimeFormatter.ISO_DATE), dietSaveInputDto.getTypeOfTime().name());
     }
 
     public DailyOutputDto getOneDayDiet(LocalDate localDate) {
@@ -110,19 +110,19 @@ public class AnalyzeDailyDietService {
     }
 
 
-    private boolean validateDailyDiet(DietInputDto dietInputDto) {
-        return Objects.isNull(dietInputDto);
+    private boolean validateDailyDiet(DietSaveInputDto dietSaveInputDto) {
+        return Objects.isNull(dietSaveInputDto);
     }
 
-    private List<Diet> convertToDiet(DietInputDto dietInputDto) {
+    private List<Diet> convertToDiet(DietSaveInputDto dietSaveInputDto) {
 
-        if (CollectionUtils.isEmpty(dietInputDto.getRecipeList())) {
-            return List.of(dietInputDto.toEntity(null));
+        if (CollectionUtils.isEmpty(dietSaveInputDto.getRecipeList())) {
+            return List.of(dietSaveInputDto.toEntity(null));
         }
 
-        return dietInputDto.getRecipeList().stream()
+        return dietSaveInputDto.getRecipeList().stream()
                 .map(recipeRepositoryService::findById)
-                .map(dietInputDto::toEntity)
+                .map(dietSaveInputDto::toEntity)
                 .collect(toList());
     }
 

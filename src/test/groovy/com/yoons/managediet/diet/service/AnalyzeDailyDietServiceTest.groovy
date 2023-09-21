@@ -1,9 +1,7 @@
 package com.yoons.managediet.diet.service
 
 import com.yoons.managediet.AbstractIntegrationBaseTest
-import com.yoons.managediet.diet.dto.DailyOutputDto
-import com.yoons.managediet.diet.dto.DietInputDto
-import com.yoons.managediet.diet.dto.DietOutputDto
+import com.yoons.managediet.diet.dto.DietSaveInputDto
 import com.yoons.managediet.diet.entity.Diet
 import com.yoons.managediet.diet.entity.TypeOfTime
 import com.yoons.managediet.recipe.entity.Recipe
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 @SpringBootTest
 @Slf4j
@@ -30,9 +27,6 @@ class AnalyzeDailyDietServiceTest extends AbstractIntegrationBaseTest {
     RecipeRepositoryService recipeRepositoryService
     @Autowired
     RecipeTypeRepositoryService recipeTypeRepositoryService
-
-    DietInputDto dailyInputDto
-
 
     def setup() {
         //Database clear
@@ -53,7 +47,7 @@ class AnalyzeDailyDietServiceTest extends AbstractIntegrationBaseTest {
         def recipe3 = savedRecipeList.get(2)
         def dateTime = LocalDate.now()
 
-        DietInputDto dailyInputDto = DietInputDto.builder()
+        DietSaveInputDto dietSaveInputDto = DietSaveInputDto.builder()
                 .totalCalorie(545.3)
                 .dietAppliedDate(dateTime)
                 .recipeList(Arrays.asList(recipe1.getId(), recipe2.getId(), recipe3.getId()))
@@ -61,7 +55,7 @@ class AnalyzeDailyDietServiceTest extends AbstractIntegrationBaseTest {
                 .build()
 
         when:
-        def result = analyzeDailyDietService.saveDiet(dailyInputDto)
+        def result = analyzeDailyDietService.saveDiet(dietSaveInputDto)
 
         then:
         result.getDietTotalCalorie() == (recipe1.getCalorie() + recipe2.getCalorie() + recipe3.getCalorie())
@@ -69,7 +63,6 @@ class AnalyzeDailyDietServiceTest extends AbstractIntegrationBaseTest {
         result.getRecipeList().size() == 3
         result.getTypeOfTime() == TypeOfTime.MORNING
     }
-
 
     def "classifyTime() 동작 테스트 - TypeOfTime 으로 grouping 테스트"() {
         given:
