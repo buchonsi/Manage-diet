@@ -1,6 +1,5 @@
 package com.yoons.managediet.diet.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yoons.managediet.diet.entity.Diet;
 import com.yoons.managediet.diet.entity.TypeOfTime;
 import com.yoons.managediet.recipe.entity.Recipe;
@@ -9,19 +8,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DietInputDto {
+public class DietSaveInputDto {
+    //@TODO 지워도 될 것 같음
     private double totalCalorie;
     private List<Long> recipeList;
 
-    @JsonFormat(pattern = "YYYY-MM-DD")
-    private LocalDateTime dietAppliedDate;
+    private LocalDate dietAppliedDate;
     private TypeOfTime typeOfTime;
 
     public Diet toEntity(Recipe recipe) {
