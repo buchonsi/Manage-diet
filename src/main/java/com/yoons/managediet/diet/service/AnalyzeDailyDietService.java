@@ -99,10 +99,6 @@ public class AnalyzeDailyDietService {
     }
 
     private DietRecipeOutputDto getRecipeAndCalorie(List<Diet> dietList) {
-        if (dietList == null || dietList.isEmpty()) {
-            throw new IllegalArgumentException("식단이 없습니다. 식단 설정을 해주세요.");
-        }
-
         List<Recipe> recipeList = dietList.stream().map(Diet::getRecipe).collect(toList());
         double totalCalorie = dietList.stream().mapToDouble(diet -> diet.getRecipe().getCalorie()).sum();
 
